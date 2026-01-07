@@ -183,6 +183,22 @@ contract Token is IToken, AgentRoleUpgradeable, TokenStorage {
     }
 
     /**
+     *  @dev See {IToken-setMetaJSON}.
+     */
+    function setMetaJSON(string calldata _metaJSON) external override onlyOwner {
+        _tokenMetaJSON = _metaJSON;
+        emit MetaJSONUpdated(_metaJSON);
+    }
+
+    /**
+     *  @dev See {IToken-setPaperContractHash}.
+     */
+    function setPaperContractHash(bytes32 _paperContractHash) external override onlyOwner {
+        _tokenPaperContractHash = _paperContractHash;
+        emit PaperContractHashUpdated(_paperContractHash);
+    }
+
+    /**
      *  @dev See {IToken-pause}.
      */
     function pause() external override onlyAgent whenNotPaused {
@@ -403,6 +419,20 @@ contract Token is IToken, AgentRoleUpgradeable, TokenStorage {
      */
     function version() external pure override returns (string memory) {
         return _TOKEN_VERSION;
+    }
+
+    /**
+     *  @dev See {IToken-metaJSON}.
+     */
+    function metaJSON() external view override returns (string memory) {
+        return _tokenMetaJSON;
+    }
+
+    /**
+     *  @dev See {IToken-paperContractHash}.
+     */
+    function paperContractHash() external view override returns (bytes32) {
+        return _tokenPaperContractHash;
     }
 
     /**

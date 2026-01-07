@@ -148,6 +148,20 @@ interface IToken is IERC20 {
      */
     event Unpaused(address _userAddress);
 
+    /**
+     *  this event is emitted when the token metadata JSON is updated
+     *  the event is emitted by the setMetaJSON function
+     *  `_newMetaJSON` is the new metadata JSON string
+     */
+    event MetaJSONUpdated(string _newMetaJSON);
+
+    /**
+     *  this event is emitted when the paper contract hash is updated
+     *  the event is emitted by the setPaperContractHash function
+     *  `_newPaperContractHash` is the new paper contract hash
+     */
+    event PaperContractHashUpdated(bytes32 indexed _newPaperContractHash);
+
     /// functions
 
     /**
@@ -173,6 +187,22 @@ interface IToken is IERC20 {
      *  emits a `UpdatedTokenInformation` event
      */
     function setOnchainID(address _onchainID) external;
+
+    /**
+     *  @dev sets the metadata JSON of the token
+     *  @param _metaJSON the metadata JSON string to set
+     *  Only the owner of the token smart contract can call this function
+     *  emits a `MetaJSONUpdated` event
+     */
+    function setMetaJSON(string calldata _metaJSON) external;
+
+    /**
+     *  @dev sets the paper contract hash of the token
+     *  @param _paperContractHash the paper contract hash to set
+     *  Only the owner of the token smart contract can call this function
+     *  emits a `PaperContractHashUpdated` event
+     */
+    function setPaperContractHash(bytes32 _paperContractHash) external;
 
     /**
      *  @dev pauses the token contract, when contract is paused investors cannot transfer tokens anymore
@@ -457,4 +487,16 @@ interface IToken is IERC20 {
      *  @param _userAddress the address of the wallet on which getFrozenTokens is called
      */
     function getFrozenTokens(address _userAddress) external view returns (uint256);
+
+    /**
+     *  @dev Returns the metadata JSON of the token
+     *  @return the metadata JSON string
+     */
+    function metaJSON() external view returns (string memory);
+
+    /**
+     *  @dev Returns the paper contract hash of the token
+     *  @return the paper contract hash
+     */
+    function paperContractHash() external view returns (bytes32);
 }

@@ -76,6 +76,8 @@ contract TokenStorage {
     string internal _tokenSymbol;
     uint8 internal _tokenDecimals;
     address internal _tokenOnchainID;
+    string internal _tokenMetaJSON;
+    bytes32 internal _tokenPaperContractHash;
     string internal constant _TOKEN_VERSION = "4.1.3";
 
     /// @dev Variables of freeze and pause functions
